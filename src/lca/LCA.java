@@ -1,17 +1,22 @@
     package lca;
 
+import java.util.Set;
+
 /**
  *
- * @author bobto
+ * @author Tom Moran
  */
 public class LCA {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("hopefully checking out this branch");
+    public LCA() {
+        
+    }
+    
+    public Node getLCA(Tree tree, Set<Integer> nodes) {
+        
+        
+        
+        return null;
     }
     
 }
