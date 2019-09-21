@@ -1,6 +1,9 @@
 
 package lca;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class main {
 
     public static void main(String[] args) {
@@ -15,9 +18,11 @@ public class main {
         tree.addNode(8, 7);
         tree.addNode(9, 7);
         
-        tree.printNodes();
         
         LCA lca = new LCA();
-        lca.getLCA(tree, nodes);
+        Set<Integer> set = new TreeSet<>();
+        set.add(6);
+        set.add(7);
+        System.out.println(lca.getLCA(tree, set).getValue());
     }
 }

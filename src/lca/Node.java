@@ -16,8 +16,8 @@ public class Node {
         this.parent = null;
     }
  
-    public boolean isHead(Node node) {
-        return node.parent == null;
+    public boolean isHead() {
+        return parent == null;
     }
     
     public int getValue() {

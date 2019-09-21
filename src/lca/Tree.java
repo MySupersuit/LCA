@@ -10,7 +10,12 @@ public class Tree {
         nodes = new ArrayList<>();
     }
 
+    // Creates a new node with value 'val' and 
+    // makes it a child of node with value 'parent'
     public boolean addNode(int val, int parent) {
+        
+        if (!isUniqueNode(val)) return false;
+        
         if (parent == -1) {
             Node newNode = new Node(val);
             nodes.add(newNode);
@@ -24,8 +29,15 @@ public class Tree {
         nodes.add(newNode);
         return true;
     }
+    
+    private boolean isUniqueNode(int val) {
+        for (Node node : nodes) {
+            if (node.getValue() == val) return false;
+        }
+        return true;
+    }
 
-    private Node getNode(int val) {
+    public Node getNode(int val) {
         for (Node node : nodes) {
             if (node.getValue() == val) {
                 return node;
