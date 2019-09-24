@@ -17,6 +17,10 @@ public class LCA {
     }
 
     public Node getLCA(Tree tree, Set<Integer> nodes) {
+        
+        if (tree.getSize() == nodes.size()) { // all nodes in set
+            return tree.getHead();            // return head of tree
+        }
 
         for (int i = 0; i < nodes.size(); i++) {
             paths.add(new ArrayList<>());
@@ -50,9 +54,6 @@ public class LCA {
             }
         }
         // First node val to be added paths-1 times is LCA
-        for (int n : dups) {
-            System.out.println(n);
-        }
 
 
         return null;

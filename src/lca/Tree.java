@@ -5,9 +5,12 @@ import java.util.ArrayList;
 public class Tree {
 
     private ArrayList<Node> nodes;
+    private int size;
+    private Node head;
     
     public Tree() {
         nodes = new ArrayList<>();
+        size = 0;
     }
 
     // Creates a new node with value 'val' and 
@@ -16,9 +19,11 @@ public class Tree {
         
         if (!isUniqueNode(val)) return false;
         
-        if (parent == -1) {
+        if (parent == -1) {     // head
             Node newNode = new Node(val);
             nodes.add(newNode);
+            head = newNode;
+            size++;
             return true;
         }
         Node parentNode = getNode(parent);
@@ -27,6 +32,7 @@ public class Tree {
         }
         Node newNode = new Node(val, parentNode);
         nodes.add(newNode);
+        size++;
         return true;
     }
     
@@ -51,6 +57,14 @@ public class Tree {
             System.out.println("Node " + node.getValue() + ((node.getParent() == null) ? " is the head":" has parent " + 
                     node.getParent().getValue() ));
         }
+    }
+    
+    public int getSize() {
+        return this.size;
+    }
+    
+    public Node getHead() {
+        return this.head;
     }
 
 }

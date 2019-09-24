@@ -14,7 +14,7 @@ import org.junit.runners.JUnit4;
 public class LCATest {
 
     private final LCA lca = new LCA();
-    private static Tree tree1;
+    private static Tree tree1, tree2;
 
     
     // Setup of tree for tests
@@ -28,6 +28,11 @@ public class LCATest {
         tree1.addNode(7, 0);
         tree1.addNode(8, 7);
         tree1.addNode(9, 7);
+        
+        tree2 = new Tree();
+        tree2.addNode(0, -1);
+        tree2.addNode(1, 0);
+        tree2.addNode(2, 0);
     }
 
 //    private void setup() {
@@ -57,5 +62,23 @@ public class LCATest {
 
         assertEquals("lca of two nodes", expectedResult, lca.getLCA(tree1, set));
         
+    }
+    
+    @Test
+    public void testZeroNodes() {
+        
+        Set<Integer> set = new TreeSet<>();
+        assertEquals("lca with no nodes", null, lca.getLCA(tree1, set));
+    }
+    
+    @Test
+    public void testAllNodes() {
+        Node expectedResult = tree2.getNode(0);
+        Set<Integer> set = new TreeSet<>();
+        set.add(0);
+        set.add(1);
+        set.add(2);
+        
+        assertEquals("lca with all nodes in set", expectedResult, lca.getLCA(tree2, set));
     }
 }
