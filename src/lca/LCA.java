@@ -17,7 +17,7 @@ public class LCA {
     }
 
     public Node getLCA(Tree tree, Set<Integer> nodes) {
-        
+
         if (tree.getSize() == nodes.size()) { // all nodes in set
             return tree.getHead();            // return head of tree
         }
@@ -32,12 +32,17 @@ public class LCA {
             if (nodes.size() == 1) {
                 return tree.getNode(nodeVal);
             }
-
+            
             Node node = tree.getNode(nodeVal);
             paths.get(i).add(nodeVal);
             while (!node.isHead()) {
-                node = node.getParent();
-                paths.get(i).add(node.getValue());
+                for (Node n : node.getParents()) {
+                    node = n;
+                    if (!paths.get(i).contains(n.getValue())) {
+                        paths.get(i).add(node.getValue());
+                    }
+                }
+                
             }
         }
         ArrayList<Integer> dups = new ArrayList<>();
@@ -46,7 +51,7 @@ public class LCA {
                 if (paths.get(i - 1).contains(paths.get(i).get(j))) {
                     dups.add(paths.get(i).get(j));
                     for (int pathVal : dups) {
-                        if (Collections.frequency(dups, pathVal) == paths.size()-1) {
+                        if (Collections.frequency(dups, pathVal) == paths.size() - 1) {
                             return tree.getNode(pathVal);
                         }
                     }
@@ -54,7 +59,6 @@ public class LCA {
             }
         }
         // First node val to be added paths-1 times is LCA
-
 
         return null;
     }

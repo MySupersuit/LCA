@@ -1,6 +1,8 @@
 package lca;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Tree {
 
@@ -17,7 +19,10 @@ public class Tree {
     // makes it a child of node with value 'parent'
     public boolean addNode(int val, int parent) {
         
-        if (!isUniqueNode(val)) return false;
+        if (!isUniqueNode(val)) {
+            // then add parent to nodes set of parents
+            getNode(val).getParents().add(getNode(parent));
+        }
         
         if (parent == -1) {     // head
             Node newNode = new Node(val);
@@ -30,7 +35,9 @@ public class Tree {
         if (parentNode == null) {
             return false;
         }
-        Node newNode = new Node(val, parentNode);
+        Set<Node> newParents = new TreeSet<>();
+        newParents.add(getNode(parent));
+        Node newNode = new Node(val, newParents);
         nodes.add(newNode);
         size++;
         return true;
@@ -54,8 +61,16 @@ public class Tree {
     
     public void printNodes() {
         for (Node node : nodes) {
-            System.out.println("Node " + node.getValue() + ((node.getParent() == null) ? " is the head":" has parent " + 
-                    node.getParent().getValue() ));
+            System.out.print("Node " + node.getValue() + ((node.getParents() == null) ? " is the head\n":" has parent(s) "));
+            if (node.getParents() != null) {
+                for (Node n : node.getParents()) {
+                    System.out.print(n.getValue() + " ");
+                }
+                System.out.println("");
+            }
+            
+            
+                    
         }
     }
     
