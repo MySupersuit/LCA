@@ -32,12 +32,18 @@ public class LCATest {
         tree2.addNode(0, -1);
         tree2.addNode(1, 0);
         tree2.addNode(2, 0);
+
+        tree3 = new Tree();
+        tree3.addNode(0, -1);
+        tree3.addNode(1, 0);
+        tree3.addNode(2, 0);
+        tree3.addNode(5, 2);
+        tree3.addNode(5, 1);
+        tree3.addNode(3, 2);
+        tree3.addNode(4, 3);
+        tree3.addNode(4, 1);
     }
 
-//    private void setup() {
-//        tree1 = new Tree();
-//
-//    }
     @Test
     public void testOneNode() {
         //setup();
@@ -77,11 +83,29 @@ public class LCATest {
         set.add(1);
         set.add(2);
 
-        assertEquals("lca with all nodes in set", expectedResult, lca.getLCA(tree2, set));
+        assertEquals("lca with all nodes in set", expectedResult,
+                lca.getLCA(tree2, set));
     }
 
     @Test
     public void testMultipleParents() {
+        Node expectedResult = tree3.getNode(2);
+        Set<Integer> set = new TreeSet<>();
+        set.add(5);
+        set.add(3);
+        assertEquals("lca on dag where multiple parents are involved",
+                expectedResult, lca.getLCA(tree3, set));
 
     }
+
+    @Test
+    public void testMultipleAnswers() {
+        Node expectedResult = tree3.getNode(1);
+        Set<Integer> set2 = new TreeSet<>();
+        set2.add(5);
+        set2.add(4);
+        assertEquals("when multiple answers expect lowest - ie first reached", expectedResult,
+                lca.getLCA(tree3, set2));
+    }
+
 }
