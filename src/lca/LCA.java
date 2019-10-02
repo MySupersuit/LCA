@@ -45,21 +45,31 @@ public class LCA {
                 
             }
         }
+//        for (int i = 0; i < paths.size(); i++) {
+//            for (int j = 0; j < paths.get(i).size(); j++) {
+//                System.out.println(paths.get(i).get(j));
+//            }
+//            System.out.println();
+//        }
         ArrayList<Integer> dups = new ArrayList<>();
-        for (int i = 1; i < paths.size(); i++) {
-            for (int j = 0; j < paths.get(i - 1).size(); j++) {
-                if (paths.get(i - 1).contains(paths.get(i).get(j))) {
+        for (int i = 0; i < paths.size(); i++) {
+            //System.out.println(i + " of "+ paths.size());
+            for (int j = 0; j < paths.get(i).size(); j++) {
+                //System.out.println(j + " of " + paths.get(i).size());
+                if (paths.get(i).contains(paths.get(i).get(j))) {
                     dups.add(paths.get(i).get(j));
                     for (int pathVal : dups) {
-                        if (Collections.frequency(dups, pathVal) == paths.size() - 1) {
+                        
+                        if (Collections.frequency(dups, pathVal) == paths.size()) {
                             return tree.getNode(pathVal);
                         }
                     }
                 }
             }
         }
-        // First node val to be added paths-1 times is LCA
-
+        
+        // First node val to be added paths.size() times is LCA
+        
         return null;
     }
 
