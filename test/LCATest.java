@@ -64,6 +64,7 @@ public class LCATest {
         treeLarge.addNode(14, 6);
         treeLarge.addNode(4, 6);
         treeLarge.addNode(13, 7);
+        treeLarge.addNode(12, 13);
         treeLarge.addNode(14, 7);
         
         treeEmpty = new Tree();
@@ -183,6 +184,17 @@ public class LCATest {
         Set<Integer> set = new TreeSet<>();
         assertEquals("empty everything", expectedResult, lca.getLCA(treeEmpty, set));
         
+    }
+    
+    @Test public void multipleCalls() {
+        Set<Integer> set = new TreeSet<>();
+        set.add(5);
+        set.add(3);
+        
+        Node expectedResult = lca.getLCA(tree3, set);
+        
+        assertEquals("multiple calls of the same function",
+                expectedResult, lca.getLCA(tree3, set));
     }
 
 }

@@ -17,6 +17,8 @@ public class LCA {
     }
 
     public Node getLCA(Tree tree, Set<Integer> nodes) {
+        
+        paths = new ArrayList<>();
 
         if (tree.getSize() == nodes.size()) { // all nodes in set
             return tree.getHead();            // return head of tree
@@ -46,17 +48,10 @@ public class LCA {
 
                 }
             }
-//        for (int i = 0; i < paths.size(); i++) {
-//            for (int j = 0; j < paths.get(i).size(); j++) {
-//                System.out.println(paths.get(i).get(j));
-//            }
-//            System.out.println();
-//        }
+
             ArrayList<Integer> dups = new ArrayList<>();
             for (int j = 0; j < paths.size(); j++) {
-                //System.out.println(i + " of "+ paths.size());
                 for (int k = 0; k < paths.get(j).size(); k++) {
-                    //System.out.println(j + " of " + paths.get(i).size());
                     if (paths.get(j).contains(paths.get(j).get(k))) {
                         dups.add(paths.get(j).get(k));
                         for (int pathVal : dups) {
