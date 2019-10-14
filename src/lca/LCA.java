@@ -18,6 +18,8 @@ public class LCA {
 
     public Node getLCA(Tree tree, Set<Integer> nodes) {
         
+        paths = new ArrayList<>();
+
         if (tree.getSize() == nodes.size()) { // all nodes in set
             return tree.getHead();            // return head of tree
         }
@@ -32,30 +34,38 @@ public class LCA {
             if (nodes.size() == 1) {
                 return tree.getNode(nodeVal);
             }
+            if (tree.getNode((int) nodeVals[i]) != null) {
 
-            Node node = tree.getNode(nodeVal);
-            paths.get(i).add(nodeVal);
-            while (!node.isHead()) {
-                node = node.getParent();
-                paths.get(i).add(node.getValue());
+                Node node = tree.getNode(nodeVal);
+                paths.get(i).add(nodeVal);
+                while (!node.isHead()) {
+                    for (Node n : node.getParents()) {
+                        node = n;
+                        if (!paths.get(i).contains(n.getValue())) {
+                            paths.get(i).add(node.getValue());
+                        }
+                    }
+
+                }
             }
-        }
-        ArrayList<Integer> dups = new ArrayList<>();
-        for (int i = 1; i < paths.size(); i++) {
-            for (int j = 0; j < paths.get(i - 1).size(); j++) {
-                if (paths.get(i - 1).contains(paths.get(i).get(j))) {
-                    dups.add(paths.get(i).get(j));
-                    for (int pathVal : dups) {
-                        if (Collections.frequency(dups, pathVal) == paths.size()-1) {
-                            return tree.getNode(pathVal);
+
+            ArrayList<Integer> dups = new ArrayList<>();
+            for (int j = 0; j < paths.size(); j++) {
+                for (int k = 0; k < paths.get(j).size(); k++) {
+                    if (paths.get(j).contains(paths.get(j).get(k))) {
+                        dups.add(paths.get(j).get(k));
+                        for (int pathVal : dups) {
+
+                            if (Collections.frequency(dups, pathVal) == paths.size()) {
+                                return tree.getNode(pathVal);
+                            }
                         }
                     }
                 }
             }
+
+            // First node val to be added paths.size() times is LCA
         }
-        // First node val to be added paths-1 times is LCA
-
-
         return null;
     }
 
